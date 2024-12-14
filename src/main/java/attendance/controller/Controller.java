@@ -1,6 +1,7 @@
 package attendance.controller;
 
 import attendance.constants.DayType;
+import attendance.model.Student;
 import attendance.model.Students;
 import attendance.utils.ServiceValidation;
 import attendance.view.InputView;
@@ -26,10 +27,11 @@ public class Controller {
     }
 
     private void clientInput_Function() {
-        String day = getDay();
+        String day = getDay(numDay);
         OutputView.messageToday(formatDate, day);
         OutputView.messageFunction();
-        String clientInput = Console.readLine();
+        String clientInput = Console.readLine().trim();
+        System.out.println();
         Service_Function(clientInput);
     }
 
@@ -59,6 +61,17 @@ public class Controller {
         String nickname = InputView.inputNickName();
         ServiceValidation.validateExistsUser(students.getStudentName(), nickname);
         String attendanceTime = InputView.inputAttendanceTime();
+
+        LocalDateTime nowDate = DateTimes.now();
+        String nowFormatDate = nowDate.format(DateTimeFormatter.ofPattern("MM월 dd일"));
+        int nowNumDay = Integer.parseInt(nowDate.format(DateTimeFormatter.ofPattern("dd")));
+        String nowFormatYMD = nowDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd "));
+
+        String yearAttendanceTime = nowFormatYMD + attendanceTime;
+
+        Student student = new Student(nickname, yearAttendanceTime);
+
+        System.out.printf("\n%s %s요일 %s %s\n\n",nowFormatDate, getDay(nowNumDay), attendanceTime, "출석"); // 출석 입력받기
     }
 
     private void client_Service_Attendance_Fixed() {
@@ -78,8 +91,8 @@ public class Controller {
 
     }
 
-    private String getDay() {
-        return DayType.checkedDay(numDay % 7);
+    private String getDay(int num) {
+        return DayType.checkedDay(num % 7);
     }
 
 }
