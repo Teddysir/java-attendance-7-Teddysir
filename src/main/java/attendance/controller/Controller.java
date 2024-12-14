@@ -38,6 +38,12 @@ public class Controller {
 
     private void Service_Function(String clientInput){
         if (clientInput.equals("1")) {
+
+            LocalDateTime nowDate = DateTimes.now();
+            String nowFormatDate = nowDate.format(DateTimeFormatter.ofPattern("MM월 dd일"));
+            int nowNumDay = Integer.parseInt(nowDate.format(DateTimeFormatter.ofPattern("dd")));
+            ServiceValidation.validateCheckAndFix(clientInput, students.getDay(nowNumDay), nowFormatDate);
+
             client_Service_Attendance_Checked();
             clientInput_Function();
         }

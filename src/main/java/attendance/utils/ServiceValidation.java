@@ -20,10 +20,10 @@ public class ServiceValidation {
         }
     }
 
-    public static void validateCheckAndFix(String input, String day) {
+    public static void validateCheckAndFix(String input, String day, String dateFormat) {
         if(input.equals("1") || input.equals("2")) {
             if(day.equals("토") || day.equals("일") || day.equals("크리스마스")) {
-                String output = String.format("[ERROR] %s %s요일은 등교일이 아닙니다.", Controller.formatDate, day);
+                String output = String.format("[ERROR] %s %s요일은 등교일이 아닙니다.", dateFormat, day);
                 throw new IllegalArgumentException(output);
             }
         }
