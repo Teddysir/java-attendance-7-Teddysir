@@ -62,6 +62,7 @@ public class Controller {
         String nickname = InputView.inputNickName();
         ServiceValidation.validateExistsUser(students.getStudentName(), nickname);
         String attendanceTime = InputView.inputAttendanceTime();
+        ServiceValidation.validateTimeFormat(attendanceTime);
 
         LocalDateTime nowDate = DateTimes.now();
         String nowFormatDate = nowDate.format(DateTimeFormatter.ofPattern("MM월 dd일"));
