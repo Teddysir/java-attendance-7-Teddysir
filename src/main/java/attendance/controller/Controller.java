@@ -3,6 +3,7 @@ package attendance.controller;
 import attendance.constants.DayType;
 import attendance.utils.ServiceValidation;
 import attendance.view.OutputView;
+import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.DateTimes;
 
 import java.time.LocalDate;
@@ -16,12 +17,58 @@ public class Controller {
     public static final int numDay = Integer.parseInt(date.format(DateTimeFormatter.ofPattern("dd")));
 
     public void start() {
-        clientInput_function();
+        clientInput_Function();
     }
 
-    private void clientInput_function() {
+    private void clientInput_Function() {
         String day = getDay();
         OutputView.messageToday(formatDate, day);
+        OutputView.messageFunction();
+        String clientInput = Console.readLine();
+        Service_Function(clientInput);
+    }
+
+    private void Service_Function(String clientInput){
+        if (clientInput.equals("1")) {
+            client_Service_Attendance_Checked();
+            clientInput_Function();
+        }
+        if (clientInput.equals("2"))  {
+            client_Service_Attendance_Fixed();
+            clientInput_Function();
+        }
+        if (clientInput.equals("3"))  {
+            client_Service_Attendance_Crew_Info();
+            clientInput_Function();
+        }
+        if (clientInput.equals("4"))  {
+            client_Service_Attendance_Crew_Danger();
+            clientInput_Function();
+        }
+        if (clientInput.equals("Q"))  {
+            client_Service_Attendance_Exit();
+        }
+    }
+
+    private void client_Service_Attendance_Checked() {
+
+    }
+
+    private void client_Service_Attendance_Fixed() {
+
+    }
+
+    private void client_Service_Attendance_Crew_Info() {
+
+    }
+
+
+    private void client_Service_Attendance_Crew_Danger() {
+
+    }
+
+    private void client_Service_Attendance_Exit() {
+
     }
 
     private String getDay() {
