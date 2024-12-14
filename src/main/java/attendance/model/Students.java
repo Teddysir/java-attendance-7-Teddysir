@@ -75,6 +75,15 @@ public class Students {
         return null;
     }
 
+    public Student getStudentByAttendanceTime(String attendanceTime) {
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getAttendanceTime().equals(attendanceTime)) {
+                return students.get(i);
+            }
+        }
+        return null;
+    }
+
     public List<String> getStudentName() {
         return students
                 .stream()
@@ -158,6 +167,10 @@ public class Students {
 
     public String getDay(int num) {
         return DayType.checkedDay(num % 7);
+    }
+
+    public List<Student> absenceUser() {
+
     }
 
 

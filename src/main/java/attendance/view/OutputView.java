@@ -18,5 +18,13 @@ public class OutputView {
         System.out.printf("\n이번 달 %s의 출석 기록입니다.\n\n", nickName);
     }
 
+    public static void messageDangerStudents() {
+        System.out.println("제적 위험자 조회 결과");
+    }
+
+    public static void messageDangerStudent(String nickName, int absenceCount, int lateCount, String type) {
+        System.out.printf("- %s: 결석 %d회, 지각 %d회 %s", nickName, absenceCount, lateCount ,type);
+    }
+
 
 }

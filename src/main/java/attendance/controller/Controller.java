@@ -130,6 +130,17 @@ public class Controller {
             String strDay = students.getDay(Integer.parseInt(userDay)); // 09 -> 9 -> ~요일
             String userTime = studentAttendanceTime.get(i).substring(11, 16); // 09:58
             String attendanceType = students.getUserAttendanceType(studentAttendanceTime.get(i), userDay);
+
+            if(attendanceType.equals("지각")) {
+                Student student = students.getStudentByAttendanceTime(studentAttendanceTime.get(i));
+                student.setLateCount();
+            }
+
+            if(attendanceType.equals("결석")) {
+                Student student = students.getStudentByAttendanceTime(studentAttendanceTime.get(i));
+                student.setAbsenceCount();
+            }
+
             String output = String.format("%s월 %s일 %s요일 %s %s",userMonth, userDay, strDay, userTime, attendanceType);
             System.out.println(output);
         }
@@ -138,6 +149,9 @@ public class Controller {
 
 
     private void client_Service_Attendance_Crew_Danger() {
+        OutputView.messageDangerStudents();
+
+
     }
 
     private void client_Service_Attendance_Exit() {
