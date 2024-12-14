@@ -1,12 +1,10 @@
 package attendance.controller;
 
 import attendance.constants.DayType;
-import attendance.utils.ServiceValidation;
 import attendance.view.OutputView;
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.DateTimes;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
