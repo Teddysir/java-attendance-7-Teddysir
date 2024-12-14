@@ -13,6 +13,7 @@ public class Controller {
 
     public static final LocalDateTime date = DateTimes.now();
     public static final String formatDate = date.format(DateTimeFormatter.ofPattern("MM월 dd일"));
+    public static final int numDay = Integer.parseInt(date.format(DateTimeFormatter.ofPattern("dd")));
 
     public void start() {
         clientInput_function();
@@ -21,11 +22,9 @@ public class Controller {
     private void clientInput_function() {
         String day = getDay();
         OutputView.messageToday(formatDate, day);
-        ServiceValidation.validateCheckAndFix("1", "토" );
     }
 
     private String getDay() {
-        int numDay = Integer.parseInt(date.format(DateTimeFormatter.ofPattern("dd")));
         return DayType.checkedDay(numDay % 7);
     }
 

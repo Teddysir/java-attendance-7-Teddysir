@@ -29,4 +29,10 @@ public class ServiceValidation {
         }
     }
 
+    public static void validateFutureDay(int num) {
+        if(Controller.numDay < num) {
+            throw new IllegalArgumentException(ErrorMessageType.ERROR_FUTURE_FIXED.getMessage());
+        }
+    }
+
 }
