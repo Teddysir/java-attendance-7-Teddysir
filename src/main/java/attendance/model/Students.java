@@ -169,9 +169,16 @@ public class Students {
         return DayType.checkedDay(num % 7);
     }
 
-    public List<Student> absenceUser() {
-
+    public List<Student> getDangerStudent() {
+        List<Student> dangerStudent = new ArrayList<>();
+        for(int i = 0 ; i< students.size(); i++ ){
+            if(students.get(i).getLateCount() > 0 || students.get(i).getAbsenceCount() > 0) {
+                dangerStudent.add(students.get(i));
+            }
+        }
+        return dangerStudent;
     }
+
 
 
 }

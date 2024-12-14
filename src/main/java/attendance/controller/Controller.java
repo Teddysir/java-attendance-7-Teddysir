@@ -37,7 +37,7 @@ public class Controller {
         Service_Function(clientInput);
     }
 
-    private void Service_Function(String clientInput){
+    private void Service_Function(String clientInput) {
         if (clientInput.equals("1")) {
 
             LocalDateTime nowDate = DateTimes.now();
@@ -48,19 +48,19 @@ public class Controller {
             client_Service_Attendance_Checked();
             clientInput_Function();
         }
-        if (clientInput.equals("2"))  {
+        if (clientInput.equals("2")) {
             client_Service_Attendance_Fixed();
             clientInput_Function();
         }
-        if (clientInput.equals("3"))  {
+        if (clientInput.equals("3")) {
             client_Service_Attendance_Crew_Info();
             clientInput_Function();
         }
-        if (clientInput.equals("4"))  {
+        if (clientInput.equals("4")) {
             client_Service_Attendance_Crew_Danger();
             clientInput_Function();
         }
-        if (clientInput.equals("Q"))  {
+        if (clientInput.equals("Q")) {
             client_Service_Attendance_Exit();
         }
     }
@@ -76,16 +76,16 @@ public class Controller {
         int nowNumDay = Integer.parseInt(nowDate.format(DateTimeFormatter.ofPattern("dd")));
         String nowFormatYMD = nowDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-        int hour = Integer.parseInt(attendanceTime.substring(0,2));
+        int hour = Integer.parseInt(attendanceTime.substring(0, 2));
         int minute = Integer.parseInt(attendanceTime.substring(3, 5));
 
         String attendanceType = students.getAttendanceTypeByStrDay(hour, minute, students.getDay(nowNumDay));
 
-        String formatAttendanceTime = String.format("%s %s",nowFormatYMD, attendanceTime);
+        String formatAttendanceTime = String.format("%s %s", nowFormatYMD, attendanceTime);
         Student student = new Student(nickname, formatAttendanceTime);
         students.addStudentInfo(student);
 
-        System.out.printf("\n%s %s요일 %s %s\n\n",nowFormatDate, students.getDay(nowNumDay), attendanceTime, attendanceType); // 출석 입력받기
+        System.out.printf("\n%s %s요일 %s %s\n\n", nowFormatDate, students.getDay(nowNumDay), attendanceTime, attendanceType); // 출석 입력받기
     }
 
     private void client_Service_Attendance_Fixed() {
@@ -95,22 +95,22 @@ public class Controller {
 
         Student student = students.getStudent(nickName, fixedDate); // 학생 객체 찾기
 
-        String originMonth = student.getAttendanceTime().substring(5,7);
-        String originDay = student.getAttendanceTime().substring(8,10);
+        String originMonth = student.getAttendanceTime().substring(5, 7);
+        String originDay = student.getAttendanceTime().substring(8, 10);
         int originNumDay = Integer.parseInt(originDay);
         String strDay = students.getDay(originNumDay);
         String strTime = student.getAttendanceTime().substring(11, 16);
-        int hour = Integer.parseInt(strTime.substring(0,2));
-        int minute = Integer.parseInt(strTime.substring(3,5));
+        int hour = Integer.parseInt(strTime.substring(0, 2));
+        int minute = Integer.parseInt(strTime.substring(3, 5));
         String attendanceType = students.getAttendanceTypeByStrDay(hour, minute, strDay);
 
         student.setAttendanceTime(fixedDateTime);
 
-        int fixedHour = Integer.parseInt(fixedDateTime.substring(0,2));
-        int fixedMinute = Integer.parseInt(fixedDateTime.substring(3,5));
+        int fixedHour = Integer.parseInt(fixedDateTime.substring(0, 2));
+        int fixedMinute = Integer.parseInt(fixedDateTime.substring(3, 5));
         String fixedAttendanceType = students.getAttendanceTypeByStrDay(fixedHour, fixedMinute, strDay);
 
-        String output = String.format("\n%s월 %s일 %s요일 %s %s -> %s %s 수정 완료!\n",originMonth,originDay, strDay, strTime, attendanceType, fixedDateTime, fixedAttendanceType);
+        String output = String.format("\n%s월 %s일 %s요일 %s %s -> %s %s 수정 완료!\n", originMonth, originDay, strDay, strTime, attendanceType, fixedDateTime, fixedAttendanceType);
         System.out.println(output);
 
 
@@ -124,24 +124,24 @@ public class Controller {
         List<String> studentAttendanceTime = students.getStudentAttendanceInfo(nickName);
 
 
-        for (int i = studentAttendanceTime.size()-1; i >= 0; i--) {
-            String userMonth = studentAttendanceTime.get(i).substring(5,7); // 12
-            String userDay = studentAttendanceTime.get(i).substring(8,10); // 09
+        for (int i = studentAttendanceTime.size() - 1; i >= 0; i--) {
+            String userMonth = studentAttendanceTime.get(i).substring(5, 7); // 12
+            String userDay = studentAttendanceTime.get(i).substring(8, 10); // 09
             String strDay = students.getDay(Integer.parseInt(userDay)); // 09 -> 9 -> ~요일
             String userTime = studentAttendanceTime.get(i).substring(11, 16); // 09:58
             String attendanceType = students.getUserAttendanceType(studentAttendanceTime.get(i), userDay);
 
-            if(attendanceType.equals("지각")) {
+            if (attendanceType.equals("지각")) {
                 Student student = students.getStudentByAttendanceTime(studentAttendanceTime.get(i));
                 student.setLateCount();
             }
 
-            if(attendanceType.equals("결석")) {
+            if (attendanceType.equals("결석")) {
                 Student student = students.getStudentByAttendanceTime(studentAttendanceTime.get(i));
                 student.setAbsenceCount();
             }
 
-            String output = String.format("%s월 %s일 %s요일 %s %s",userMonth, userDay, strDay, userTime, attendanceType);
+            String output = String.format("%s월 %s일 %s요일 %s %s", userMonth, userDay, strDay, userTime, attendanceType);
             System.out.println(output);
         }
         System.out.println();
@@ -151,13 +151,30 @@ public class Controller {
     private void client_Service_Attendance_Crew_Danger() {
         OutputView.messageDangerStudents();
 
+        List<Student> dangerStudent = students.getDangerStudent();
+
+        for (int i = 0; i < dangerStudent.size(); i++) {
+            int point = 0;
+            String type = "";
+            point += dangerStudent.get(i).getLateCount();
+            point += (dangerStudent.get(i).getAbsenceCount() * 3);
+            if (point >= 6) {
+                type = "(경고)";
+            }
+            if (point >= 9) {
+                type = "(면담)";
+            }
+            if (point > 15) {
+                type = "(제적)";
+            }
+            OutputView.messageDangerStudent(dangerStudent.get(i).getName(), dangerStudent.get(i).getAbsenceCount(), dangerStudent.get(i).getLateCount(), type);
+        }
 
     }
 
     private void client_Service_Attendance_Exit() {
 
     }
-
 
 
 }
