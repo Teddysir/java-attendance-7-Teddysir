@@ -1,13 +1,12 @@
 package attendance.model;
 
-import java.time.LocalDate;
 
 public class Student {
 
     private String name;
-    private LocalDate attendanceTime;
+    private String attendanceTime;
 
-    public Student(String name, LocalDate attendanceTime) {
+    public Student(String name, String attendanceTime) {
         this.name = name;
         this.attendanceTime = attendanceTime;
     }
@@ -16,7 +15,7 @@ public class Student {
         return name;
     }
 
-    public LocalDate getAttendanceTime() {
+    public String getAttendanceTime() {
         return attendanceTime;
     }
 }

@@ -1,6 +1,7 @@
 package attendance.controller;
 
 import attendance.constants.DayType;
+import attendance.model.Students;
 import attendance.view.OutputView;
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.DateTimes;
@@ -14,7 +15,10 @@ public class Controller {
     public static final String formatDate = date.format(DateTimeFormatter.ofPattern("MM월 dd일"));
     public static final int numDay = Integer.parseInt(date.format(DateTimeFormatter.ofPattern("dd")));
 
+    private final Students students = new Students();
+
     public void start() {
+        students.initStudentAttendanceInfo();
         clientInput_Function();
     }
 
