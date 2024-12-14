@@ -88,6 +88,12 @@ public class Controller {
     }
 
     private void client_Service_Attendance_Fixed() {
+        String nickName = InputView.inputFixedUserName();
+        String fixedDate = InputView.inputFixedDate();
+        String fixedDateTime = InputView.inputAttendanceTime();
+
+
+
 
     }
 

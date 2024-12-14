@@ -1,9 +1,7 @@
 package attendance.model;
 
 import attendance.constants.DayType;
-import com.sun.source.tree.IfTree;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -145,11 +143,6 @@ public class Students {
         return null;
     }
 
-
-//    public void updateAttendanceType(Student student) {
-//        String userDay = student.getAttendanceTime().substring(8,10); // 09
-//        String strDay = getDay(Integer.parseInt(userDay)); // 09 -> 9 -> ~요일
-//    }
 
     public String getDay(int num) {
         return DayType.checkedDay(num % 7);
