@@ -1,5 +1,6 @@
 package attendance.controller;
 
+import attendance.constants.DayType;
 import attendance.view.OutputView;
 import camp.nextstep.edu.missionutils.DateTimes;
 
@@ -17,7 +18,13 @@ public class Controller {
     }
 
     private void clientInput_function() {
-        OutputView.messageToday(formatDate);
+        String day = getDay();
+        OutputView.messageToday(formatDate, day);
+    }
+
+    private String getDay() {
+        int numDay = Integer.parseInt(date.format(DateTimeFormatter.ofPattern("dd")));
+        return DayType.checkedDay(numDay % 7);
     }
 
 }

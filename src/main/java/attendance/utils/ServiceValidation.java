@@ -20,7 +20,6 @@ public class ServiceValidation {
     }
 
     public static void validateCheckAndFix() {
-//        DateTimes
     }
 
 }
