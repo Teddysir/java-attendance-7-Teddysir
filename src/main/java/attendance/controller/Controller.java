@@ -67,9 +67,13 @@ public class Controller {
 
     private void client_Service_Attendance_Checked() {
         String nickname = InputView.inputNickName();
+
+        Student student = students.getStudent(nickname);
+
         ServiceValidation.validateExistsUser(students.getStudentName(), nickname);
         String attendanceTime = InputView.inputAttendanceTime();
         ServiceValidation.validateTimeFormat(attendanceTime);
+
 
         LocalDateTime nowDate = DateTimes.now();
         String nowFormatDate = nowDate.format(DateTimeFormatter.ofPattern("MM월 dd일"));

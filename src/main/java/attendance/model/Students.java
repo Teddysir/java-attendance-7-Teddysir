@@ -75,6 +75,15 @@ public class Students {
         return null;
     }
 
+    public Student getStudent(String name) {
+        for(int i = 0; i< students.size(); i++ ) {
+            if (students.get(i).getName().equals(name)) {
+                return students.get(i);
+            }
+        }
+        return null;
+    }
+
     public Student getStudentByAttendanceTime(String attendanceTime) {
         for (int i = 0; i < students.size(); i++) {
             if (students.get(i).getAttendanceTime().equals(attendanceTime)) {

@@ -37,6 +37,14 @@ public class ServiceValidation {
         }
     }
 
+    public static void validateOperationTime(String attendanceTime) {
+        int hour = Integer.parseInt(attendanceTime.substring(0,2));
+        int minute = Integer.parseInt(attendanceTime.substring(3,5));
+        if(hour < 8 || hour > 24) {
+            throw new IllegalArgumentException(ErrorMessageType.ERROR_OPERATION_TIME.getMessage());
+        }
+    }
+
     public static void validateFutureDay(int num) {
         if(Controller.numDay < num) {
             throw new IllegalArgumentException(ErrorMessageType.ERROR_FUTURE_FIXED.getMessage());
