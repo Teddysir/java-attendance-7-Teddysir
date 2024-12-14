@@ -87,15 +87,20 @@ public class Students {
 
 
     public String getAttendanceType(String attendanceTime, int nowNumDay) {
-        int hour = Integer.parseInt(attendanceTime.substring(0, 2)); // hh
-        int minute = Integer.parseInt(attendanceTime.substring(3, 5)); // mm
+        int hour = Integer.parseInt(attendanceTime.substring(11, 13));
+        int minute = Integer.parseInt(attendanceTime.substring(14, 16));
         String strDay = getDay(nowNumDay);
 
         return getAttendanceTypeByStrDay(hour, minute, strDay);
 
     }
 
-    private String getAttendanceTypeByStrDay(int hour, int minute, String strDay) {
+    public String getUserAttendanceType(String attendanceTime, String strDay) {
+        int numDay = Integer.parseInt(strDay);
+        return getAttendanceType(attendanceTime, numDay);
+    }
+
+    public String getAttendanceTypeByStrDay(int hour, int minute, String strDay) {
         if (strDay.equals("월")) {
             return study_13(hour, minute);
         }
@@ -112,7 +117,7 @@ public class Students {
         if (hour >= 8 && hour < 13) { // 8시 이상, 13시 전
             return "(출석)";
         }
-        if (hour == 13 && minute == 0) {
+        if (hour == 13 && minute <= 5) {
             return "(출석)";
         }
         if (hour >= 13 && minute > 5 && minute <= 30) {
@@ -128,7 +133,7 @@ public class Students {
         if (hour >= 8 && hour < 10) { // 8시 이상, 13시 전
             return "(출석)";
         }
-        if (hour == 10 && minute == 0) {
+        if (hour == 10 && minute <= 5) {
             return "(출석)";
         }
         if (hour >= 10 && minute > 5 && minute <= 30) {
