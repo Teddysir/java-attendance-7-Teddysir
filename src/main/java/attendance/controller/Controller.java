@@ -68,8 +68,6 @@ public class Controller {
     private void client_Service_Attendance_Checked() {
         String nickname = InputView.inputNickName();
 
-        Student student = students.getStudent(nickname);
-
         ServiceValidation.validateExistsUser(students.getStudentName(), nickname);
         String attendanceTime = InputView.inputAttendanceTime();
         ServiceValidation.validateTimeFormat(attendanceTime);
@@ -151,31 +149,31 @@ public class Controller {
         System.out.println();
     }
 
-
+//
     private void client_Service_Attendance_Crew_Danger() {
-        OutputView.messageDangerStudents();
-
-        List<Student> dangerStudent = students.getDangerStudent();
-
-        for (int i = 0; i < dangerStudent.size(); i++) {
-            int point = 0;
-            String type = "";
-            point += dangerStudent.get(i).getLateCount();
-            point += (dangerStudent.get(i).getAbsenceCount() * 3);
-            if (point >= 6) {
-                type = "(경고)";
-            }
-            if (point >= 9) {
-                type = "(면담)";
-            }
-            if (point > 15) {
-                type = "(제적)";
-            }
-            OutputView.messageDangerStudent(dangerStudent.get(i).getName(), dangerStudent.get(i).getAbsenceCount(), dangerStudent.get(i).getLateCount(), type);
-        }
-
+//        OutputView.messageDangerStudents();
+//
+//        List<Student> dangerStudent = students.getDangerStudent();
+//
+//        for (int i = 0; i < dangerStudent.size(); i++) {
+//            int point = 0;
+//            String type = "";
+//            point += dangerStudent.get(i).getLateCount();
+//            point += (dangerStudent.get(i).getAbsenceCount() * 3);
+//            if (point >= 6) {
+//                type = "(경고)";
+//            }
+//            if (point >= 9) {
+//                type = "(면담)";
+//            }
+//            if (point > 15) {
+//                type = "(제적)";
+//            }
+//            OutputView.messageDangerStudent(dangerStudent.get(i).getName(), dangerStudent.get(i).getAbsenceCount(), dangerStudent.get(i).getLateCount(), type);
+//        }
+//
     }
-
+//
     private void client_Service_Attendance_Exit() {
 
     }
