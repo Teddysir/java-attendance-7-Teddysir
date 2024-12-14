@@ -66,10 +66,10 @@ public class Controller {
         LocalDateTime nowDate = DateTimes.now();
         String nowFormatDate = nowDate.format(DateTimeFormatter.ofPattern("MM월 dd일"));
         int nowNumDay = Integer.parseInt(nowDate.format(DateTimeFormatter.ofPattern("dd")));
-        String nowFormatYMD = nowDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd "));
+        String nowFormatYMD = nowDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-        String formatAttendanceTime = String.format("%s %s요일 %s %s",nowFormatDate, getDay(nowNumDay), attendanceTime, "(출석)");
-
+        String formatAttendanceTime = String.format("%s %s",nowFormatYMD, attendanceTime);
+        System.out.println(formatAttendanceTime);
         Student student = new Student(nickname, formatAttendanceTime);
         students.addStudentInfo(student);
 
@@ -87,9 +87,16 @@ public class Controller {
 
         List<String> studentAttendanceTime = students.getStudentAttendanceInfo(nickName);
 
-        for (int i = 0; i< studentAttendanceTime.size(); i++) {
-            System.out.println(studentAttendanceTime.get(i));
+
+        for (int i = studentAttendanceTime.size()-1; i >= 0; i--) {
+            String userMonth = studentAttendanceTime.get(i).substring(5,7); // 12
+            String userDay = studentAttendanceTime.get(i).substring(8,10); // 09
+            String strDay = getDay(Integer.parseInt(userDay)); // 09 -> 9 -> ~요일
+            String userTime = studentAttendanceTime.get(i).substring(11, 16);
+            String output = String.format("%s월 %s일 %s요일 %s",userMonth, userDay, strDay, userTime);
+            System.out.println(output);
         }
+        System.out.println();
     }
 
 
