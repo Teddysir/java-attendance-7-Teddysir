@@ -2,10 +2,13 @@ package attendance.controller;
 
 import attendance.constants.DayType;
 import attendance.model.Students;
+import attendance.utils.ServiceValidation;
+import attendance.view.InputView;
 import attendance.view.OutputView;
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.DateTimes;
 
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -53,7 +56,9 @@ public class Controller {
     }
 
     private void client_Service_Attendance_Checked() {
-
+        String nickname = InputView.inputNickName();
+        ServiceValidation.validateExistsUser(students.getStudentName(), nickname);
+        String attendanceTime = InputView.inputAttendanceTime();
     }
 
     private void client_Service_Attendance_Fixed() {
