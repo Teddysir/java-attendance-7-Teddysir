@@ -2,7 +2,8 @@ package attendance.constants;
 
 public enum ErrorMessageType {
 
-    ERROR_NULL("[ERROR] 잘못된 형식을 입력하였습니다.");
+    ERROR_NULL("[ERROR] 잘못된 형식을 입력하였습니다."),
+    ERROR_INVALID_USER("[ERROR] 등록되지 않은 닉네임입니다.");
 
     private final String message;
 
