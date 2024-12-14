@@ -138,7 +138,6 @@ public class Controller {
 
 
     private void client_Service_Attendance_Crew_Danger() {
-
     }
 
     private void client_Service_Attendance_Exit() {
