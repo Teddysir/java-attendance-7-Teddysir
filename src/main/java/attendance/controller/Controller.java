@@ -9,6 +9,7 @@ import attendance.view.OutputView;
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.DateTimes;
 
+import java.io.File;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -89,11 +90,12 @@ public class Controller {
 
     private void client_Service_Attendance_Fixed() {
         String nickName = InputView.inputFixedUserName();
-        String fixedDate = InputView.inputFixedDate();
+        int fixedDate = Integer.parseInt(InputView.inputFixedDate());
         String fixedDateTime = InputView.inputAttendanceTime();
 
+        Student student = students.getStudent(nickName, fixedDate); // 학생 객체 찾기
 
-
+        student.setAttendanceTime(fixedDateTime);
 
     }
 

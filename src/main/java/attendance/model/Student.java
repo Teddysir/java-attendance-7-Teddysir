@@ -18,4 +18,10 @@ public class Student {
     public String getAttendanceTime() {
         return attendanceTime;
     }
+
+    public void setAttendanceTime(String attendanceTime) {
+        String newAttendanceTime = this.attendanceTime.substring(0,11);
+        newAttendanceTime += attendanceTime;
+        this.attendanceTime = newAttendanceTime;
+    }
 }

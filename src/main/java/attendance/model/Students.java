@@ -63,6 +63,17 @@ public class Students {
         students.add(new Student("짱수", "2024-12-02 13:00"));
     }
 
+    public Student getStudent(String name, int attendanceDay) {
+        for(int i = 0 ; i< students.size(); i++ ) {
+            if (students.get(i).getName().equals(name)) {
+                int attendanceTimeDay = Integer.parseInt(students.get(i).getAttendanceTime().substring(8,10));
+                if(attendanceTimeDay == attendanceDay) {
+                    return students.get(i);
+                }
+            }
+        }
+        return null;
+    }
 
     public List<String> getStudentName() {
         return students
@@ -70,6 +81,7 @@ public class Students {
                 .map(Student::getName)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
+
 
     public List<String> getStudentAttendanceInfo(String nickName) {
         return students
