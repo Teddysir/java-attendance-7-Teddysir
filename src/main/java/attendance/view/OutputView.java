@@ -14,4 +14,8 @@ public class OutputView {
         System.out.println("Q. 종료");
     }
 
+    public static void messageAttendanceInfo(String nickName) {
+        System.out.printf("\n이번 달 %s의 출석 기록입니다.\n\n", nickName);
+    }
+
 }

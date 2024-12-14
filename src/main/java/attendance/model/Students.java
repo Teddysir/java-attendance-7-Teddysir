@@ -69,5 +69,18 @@ public class Students {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    public List<String> getStudentAttendanceInfo(String nickName) {
+        return students
+                .stream()
+                .filter(student -> student.getName().equals(nickName))
+                .map(Student::getAttendanceTime)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public void addStudentInfo(Student student) {
+        students.add(student);
+    }
+
+
 
 }

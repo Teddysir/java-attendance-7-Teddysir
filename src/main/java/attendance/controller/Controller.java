@@ -12,6 +12,7 @@ import camp.nextstep.edu.missionutils.DateTimes;
 import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 public class Controller {
 
@@ -67,11 +68,12 @@ public class Controller {
         int nowNumDay = Integer.parseInt(nowDate.format(DateTimeFormatter.ofPattern("dd")));
         String nowFormatYMD = nowDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd "));
 
-        String yearAttendanceTime = nowFormatYMD + attendanceTime;
+        String formatAttendanceTime = String.format("%s %s요일 %s %s",nowFormatDate, getDay(nowNumDay), attendanceTime, "(출석)");
 
-        Student student = new Student(nickname, yearAttendanceTime);
+        Student student = new Student(nickname, formatAttendanceTime);
+        students.addStudentInfo(student);
 
-        System.out.printf("\n%s %s요일 %s %s\n\n",nowFormatDate, getDay(nowNumDay), attendanceTime, "출석"); // 출석 입력받기
+        System.out.printf("\n%s %s요일 %s %s\n\n",nowFormatDate, getDay(nowNumDay), attendanceTime, "(출석)"); // 출석 입력받기
     }
 
     private void client_Service_Attendance_Fixed() {
@@ -79,7 +81,15 @@ public class Controller {
     }
 
     private void client_Service_Attendance_Crew_Info() {
+        String nickName = InputView.inputNickName();
+        OutputView.messageAttendanceInfo(nickName);
+        ServiceValidation.validateExistsUser(students.getStudentName(), nickName);
 
+        List<String> studentAttendanceTime = students.getStudentAttendanceInfo(nickName);
+
+        for (int i = 0; i< studentAttendanceTime.size(); i++) {
+            System.out.println(studentAttendanceTime.get(i));
+        }
     }
 
 
