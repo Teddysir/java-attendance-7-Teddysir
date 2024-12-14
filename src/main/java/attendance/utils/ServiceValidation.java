@@ -1,6 +1,7 @@
 package attendance.utils;
 
 import attendance.constants.ErrorMessageType;
+import camp.nextstep.edu.missionutils.DateTimes;
 
 import java.util.List;
 
@@ -16,6 +17,10 @@ public class ServiceValidation {
         if(!users.contains(userName)) {
             throw new IllegalArgumentException(ErrorMessageType.ERROR_INVALID_USER.getMessage());
         }
+    }
+
+    public static void validateCheckAndFix() {
+//        DateTimes
     }
 
 }
