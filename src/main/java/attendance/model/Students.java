@@ -1,5 +1,9 @@
 package attendance.model;
 
+import attendance.constants.DayType;
+import com.sun.source.tree.IfTree;
+
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -81,6 +85,70 @@ public class Students {
         students.add(student);
     }
 
+
+    public String getAttendanceType(String attendanceTime, int nowNumDay) {
+        int hour = Integer.parseInt(attendanceTime.substring(0, 2)); // hh
+        int minute = Integer.parseInt(attendanceTime.substring(3, 5)); // mm
+        String strDay = getDay(nowNumDay);
+
+        return getAttendanceTypeByStrDay(hour, minute, strDay);
+
+    }
+
+    private String getAttendanceTypeByStrDay(int hour, int minute, String strDay) {
+        if (strDay.equals("월")) {
+            return study_13(hour, minute);
+        }
+        if (strDay.equals("화") || strDay.equals("수") || strDay.equals("목") || strDay.equals("금")) {
+            return study_10(hour, minute);
+        }
+        if (strDay.equals("토") || strDay.equals("일")) {
+            return "(결석)";
+        }
+        return null;
+    }
+
+    private String study_13(int hour, int minute) {
+        if (hour >= 8 && hour < 13) { // 8시 이상, 13시 전
+            return "(출석)";
+        }
+        if (hour == 13 && minute == 0) {
+            return "(출석)";
+        }
+        if (hour >= 13 && minute > 5 && minute <= 30) {
+            return "(지각)";
+        }
+        if (hour >= 13 && minute > 30) {
+            return "(결석)";
+        }
+        return null;
+    }
+
+    private String study_10(int hour, int minute) {
+        if (hour >= 8 && hour < 10) { // 8시 이상, 13시 전
+            return "(출석)";
+        }
+        if (hour == 10 && minute == 0) {
+            return "(출석)";
+        }
+        if (hour >= 10 && minute > 5 && minute <= 30) {
+            return "(지각)";
+        }
+        if (hour >= 10 && minute > 30) {
+            return "(결석)";
+        }
+        return null;
+    }
+
+
+//    public void updateAttendanceType(Student student) {
+//        String userDay = student.getAttendanceTime().substring(8,10); // 09
+//        String strDay = getDay(Integer.parseInt(userDay)); // 09 -> 9 -> ~요일
+//    }
+
+    public String getDay(int num) {
+        return DayType.checkedDay(num % 7);
+    }
 
 
 }

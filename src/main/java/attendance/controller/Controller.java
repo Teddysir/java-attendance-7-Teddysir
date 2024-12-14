@@ -28,7 +28,7 @@ public class Controller {
     }
 
     private void clientInput_Function() {
-        String day = getDay(numDay);
+        String day = students.getDay(numDay);
         OutputView.messageToday(formatDate, day);
         OutputView.messageFunction();
         String clientInput = Console.readLine().trim();
@@ -68,12 +68,14 @@ public class Controller {
         int nowNumDay = Integer.parseInt(nowDate.format(DateTimeFormatter.ofPattern("dd")));
         String nowFormatYMD = nowDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
+        String attendanceType = students.getAttendanceType(attendanceTime, nowNumDay);
+
         String formatAttendanceTime = String.format("%s %s",nowFormatYMD, attendanceTime);
         System.out.println(formatAttendanceTime);
         Student student = new Student(nickname, formatAttendanceTime);
         students.addStudentInfo(student);
 
-        System.out.printf("\n%s %s요일 %s %s\n\n",nowFormatDate, getDay(nowNumDay), attendanceTime, "(출석)"); // 출석 입력받기
+        System.out.printf("\n%s %s요일 %s %s\n\n",nowFormatDate, students.getDay(nowNumDay), attendanceTime, attendanceType); // 출석 입력받기
     }
 
     private void client_Service_Attendance_Fixed() {
@@ -91,8 +93,8 @@ public class Controller {
         for (int i = studentAttendanceTime.size()-1; i >= 0; i--) {
             String userMonth = studentAttendanceTime.get(i).substring(5,7); // 12
             String userDay = studentAttendanceTime.get(i).substring(8,10); // 09
-            String strDay = getDay(Integer.parseInt(userDay)); // 09 -> 9 -> ~요일
-            String userTime = studentAttendanceTime.get(i).substring(11, 16);
+            String strDay = students.getDay(Integer.parseInt(userDay)); // 09 -> 9 -> ~요일
+            String userTime = studentAttendanceTime.get(i).substring(11, 16); // 09:58
             String output = String.format("%s월 %s일 %s요일 %s",userMonth, userDay, strDay, userTime);
             System.out.println(output);
         }
@@ -108,8 +110,6 @@ public class Controller {
 
     }
 
-    private String getDay(int num) {
-        return DayType.checkedDay(num % 7);
-    }
+
 
 }
