@@ -1,6 +1,7 @@
 package attendance.controller;
 
 import attendance.constants.DayType;
+import attendance.utils.ServiceValidation;
 import attendance.view.OutputView;
 import camp.nextstep.edu.missionutils.DateTimes;
 
@@ -11,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 public class Controller {
 
     public static final LocalDateTime date = DateTimes.now();
-    private static final String formatDate = date.format(DateTimeFormatter.ofPattern("MM월 dd일"));
+    public static final String formatDate = date.format(DateTimeFormatter.ofPattern("MM월 dd일"));
 
     public void start() {
         clientInput_function();
@@ -20,6 +21,7 @@ public class Controller {
     private void clientInput_function() {
         String day = getDay();
         OutputView.messageToday(formatDate, day);
+        ServiceValidation.validateCheckAndFix("1", "토" );
     }
 
     private String getDay() {
