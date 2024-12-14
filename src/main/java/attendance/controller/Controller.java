@@ -95,7 +95,24 @@ public class Controller {
 
         Student student = students.getStudent(nickName, fixedDate); // 학생 객체 찾기
 
+        String originMonth = student.getAttendanceTime().substring(5,7);
+        String originDay = student.getAttendanceTime().substring(8,10);
+        int originNumDay = Integer.parseInt(originDay);
+        String strDay = students.getDay(originNumDay);
+        String strTime = student.getAttendanceTime().substring(11, 16);
+        int hour = Integer.parseInt(strTime.substring(0,2));
+        int minute = Integer.parseInt(strTime.substring(3,5));
+        String attendanceType = students.getAttendanceTypeByStrDay(hour, minute, strDay);
+
         student.setAttendanceTime(fixedDateTime);
+
+        int fixedHour = Integer.parseInt(fixedDateTime.substring(0,2));
+        int fixedMinute = Integer.parseInt(fixedDateTime.substring(3,5));
+        String fixedAttendanceType = students.getAttendanceTypeByStrDay(fixedHour, fixedMinute, strDay);
+
+        String output = String.format("\n%s월 %s일 %s요일 %s %s -> %s %s 수정 완료!\n",originMonth,originDay, strDay, strTime, attendanceType, fixedDateTime, fixedAttendanceType);
+        System.out.println(output);
+
 
     }
 
